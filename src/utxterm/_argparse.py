@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 @dataclass
 class CliArgs:
-    file_path: str
+    filepath: str
 
 
 def setup_argparse() -> CliArgs:
@@ -18,7 +18,7 @@ def setup_argparse() -> CliArgs:
     )
 
     parser.add_argument(
-        "file_path",
+        "filepath",
         type=str,
         help=(
             "The file view. If it has the file extension `.puml`, "
