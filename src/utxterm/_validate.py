@@ -52,8 +52,8 @@ def _is_plantuml_available() -> PlantumlCallable:
 
     LOGGER.info(
         "Checking if `plantuml.jar` is found in the current working directory."
-        f"\nCurrent Workingdir: '{os.curdir}'."
     )
+    LOGGER.info(f"Current Workingdir: '{os.curdir}'.")
 
     files: list[str] = os.listdir(os.curdir)
     puml_files: list[str] = [f for f in files if f.lower() == "plantuml.jar"]
@@ -70,7 +70,7 @@ def _is_plantuml_available() -> PlantumlCallable:
 
     ### Check for plantuml command in path
 
-    LOGGER.info("Checking if the `plantuml` command is available in the path`")
+    LOGGER.info("Checking if the `plantuml` command is available in the path.")
 
     which_check: str | None = which("plantuml")
     if which_check is not None:
