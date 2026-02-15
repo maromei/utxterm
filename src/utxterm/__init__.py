@@ -4,6 +4,7 @@ from utxterm._argparse import setup_argparse, CliArgs
 from utxterm._validate import generate_config, Config
 from utxterm._render_puml import render_puml, UtxtPath
 from utxterm._read_file import read_utxt_content
+from utxterm._replace_formatting import replace_loop
 
 
 LOGGER: logging.Logger = logging.getLogger(__name__)
@@ -23,4 +24,7 @@ def main():
         utxt_path = render_puml(config.filepath, config.plantuml_callable)
 
     utxt_content: str = read_utxt_content(utxt_path)
+    terminal_content: str = replace_loop(utxt_content)
+
+    print(terminal_content, end="")
 
