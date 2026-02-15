@@ -19,3 +19,7 @@ class CustomJarPath(Path):
 
 
 PlantumlCallable = Union[NotAvailable, JarInWorkDir, InPath, CustomJarPath]
+
+
+class PlantUmlNotAvailable(Exception):
+    pass
