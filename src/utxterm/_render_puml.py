@@ -20,7 +20,7 @@ LOGGER: logging.Logger = logging.getLogger(__name__)
 
 @dataclass
 class TempDirRenderedUtxt:
-    temp_dir: TemporaryDirectory
+    temp_dir: TemporaryDirectory[str]
     filepath: Path
 
 
