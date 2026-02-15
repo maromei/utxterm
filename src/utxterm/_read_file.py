@@ -26,7 +26,7 @@ def read_utxt_content(utxt_path: UtxtPath) -> str:
         case TempDirRenderedUtxt():
             with open(utxt_path.filepath, "r") as f:
                 content = f.read()
-            utxt_path.temp_dir.cleanup()
+            utxt_path.cleanup()
             LOGGER.info(
                 "Deleted the temporary directory after "
                 "reading the file content."

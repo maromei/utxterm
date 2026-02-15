@@ -1,9 +1,10 @@
 import logging
 import subprocess
+from shutil import rmtree
 from pathlib import Path
 from dataclasses import dataclass
-from typing import assert_never, cast, Union
-from tempfile import TemporaryDirectory
+from typing import assert_never, cast, Union, Self
+from tempfile import mkdtemp
 
 from utxterm._pumlcallable import (
     PlantumlCallable,
@@ -20,8 +21,11 @@ LOGGER: logging.Logger = logging.getLogger(__name__)
 
 @dataclass
 class TempDirRenderedUtxt:
-    temp_dir: TemporaryDirectory[str]
+    temp_dir: str
     filepath: Path
+
+    def cleanup(self):
+        rmtree(self.temp_dir, ignore_errors=True)
 
 
 UtxtPath = Union[Path, TempDirRenderedUtxt]
@@ -51,10 +55,10 @@ def render_puml(filepath: Path, puml_callable: PlantumlCallable) -> UtxtPath:
         case _:
             assert_never(puml_callable)
 
-    temp_dir: TemporaryDirectory[str] = TemporaryDirectory()
-    temp_dir_str: str = str(temp_dir)
+    temp_dir_str: str = mkdtemp()
     render_cmd: str = (
-        f"{base_render_cmd} --format utxt --output-dir {temp_dir_str}"
+        f"{base_render_cmd} --format utxt --output-dir {temp_dir_str} "
+        f"{filepath.as_posix()}"
     )
 
     LOGGER.info(
@@ -66,6 +70,9 @@ def render_puml(filepath: Path, puml_callable: PlantumlCallable) -> UtxtPath:
     subprocess.check_call(render_cmd_args)
 
     generated_file: Path = Path(temp_dir_str) / f"{filepath.stem}.utxt"
+    temp_dir: TempDirRenderedUtxt = TempDirRenderedUtxt(
+        temp_dir_str, generated_file
+    )
     if not generated_file.exists():
         temp_dir.cleanup()
         raise FileNotFoundError(
@@ -74,4 +81,4 @@ def render_puml(filepath: Path, puml_callable: PlantumlCallable) -> UtxtPath:
             f"'{generated_file.as_posix()}'."
         )
 
-    return TempDirRenderedUtxt(temp_dir, generated_file)
+    return temp_dir
