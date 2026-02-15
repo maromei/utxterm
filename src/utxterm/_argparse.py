@@ -6,6 +6,7 @@ from dataclasses import dataclass
 @dataclass
 class CliArgs:
     filepath: str
+    verbose: bool
 
 
 def setup_argparse() -> CliArgs:
@@ -24,6 +25,13 @@ def setup_argparse() -> CliArgs:
             "The file view. If it has the file extension `.puml`, "
             "it will first be rendered."
         ),
+    )
+
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Increase output verbosity",
     )
 
     args: argparse.Namespace = parser.parse_args()
