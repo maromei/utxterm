@@ -33,9 +33,9 @@ def hex_to_rgb(value: str) -> tuple[int, int, int]:
     assert len(value) == 6
     hex_strs: tuple[str, str, str] = (value[0:2], value[2:4], value[4:6])
     rgbs: tuple[int, int, int] = (
-        int(hex_strs[0]),
-        int(hex_strs[1]),
-        int(hex_strs[2]),
+        int(hex_strs[0], 16),
+        int(hex_strs[1], 16),
+        int(hex_strs[2], 16),
     )
     return rgbs
 
@@ -77,12 +77,12 @@ class AnsiFormat:
 
     @staticmethod
     def underline(content: str) -> str:
-        return f"\033[4m{content}\033[22m"
+        return f"\033[4m{content}\033[24m"
 
     @staticmethod
     def italic(content: str) -> str:
-        return f"\033[3m{content}\033[22m"
+        return f"\033[3m{content}\033[23m"
 
     @staticmethod
     def strikethrough(content: str) -> str:
-        return f"\033[9m{content}\033[22m"
+        return f"\033[9m{content}\033[29m"
