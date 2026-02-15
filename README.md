@@ -2,6 +2,8 @@
 
 Render unicode puml diagrams in your terminal with color.
 
+![](example/diagram_rendered_in_terminal.png)
+
 ## Example
 
 The following example can be found in the `example/` directory.
@@ -70,6 +72,16 @@ utxterm example.puml
 
 ![](example/diagram_rendered_in_terminal.png)
 
+## Limitations
+
+1. Currently the puml files are rendered to unicode and then replaced with ANSI
+   color sequences. The boxes, however, are not redrawn.
+   This causes boxes larger than necessary.
+
+2. Currently bounding boxes are only checked for with the `\u2502` unicode
+   character (`│`). This works fine for simple object or class diagrams, but
+   might not be usable for others.
+ 
 ## Dev Environment
 
 - linting: `ruff`
