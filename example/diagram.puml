@@ -1,0 +1,23 @@
+@startuml
+
+object A {
+    <b>Bold Text</b>
+    <i>Italic Text</i>
+    <u>Underlined Text</u>
+    <s>Strikethrough Text</s>
+}
+
+object B {
+    <color:red>Red Text</color>
+    <color:#D27E99>Pink Hex-Code Text</color>
+}
+
+object C {
+    <b><u>Bold and underlined Text</u></b>
+    <color:brightgreen><s>Strikethrough Bright Green Text</s></color>
+}
+
+A -right-> B
+A -down-> C
+
+@enduml
