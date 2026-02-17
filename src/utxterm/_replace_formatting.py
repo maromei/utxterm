@@ -1,3 +1,4 @@
+from __future__ import annotations
 import re
 from typing import Callable
 from enum import StrEnum, auto
@@ -6,7 +7,6 @@ from utxterm._colors import ColorDict, AnsiFormat, InvalidColor
 
 
 class ReplaceMode(StrEnum):
-
     #: Simply replace every formatting sequence with a space.
     #:
     #: # Example:
@@ -31,6 +31,19 @@ class ReplaceMode(StrEnum):
     #: | before <color:blue>Blue Text</color> after |
     #: | before           Blue Text           after |
     center = auto()
+
+    @staticmethod
+    def as_list() -> list[str]:
+        return [mode.value for mode in ReplaceMode]
+
+    @staticmethod
+    def get_by_value(
+        value: str, default: ReplaceMode | None = None
+    ) -> ReplaceMode | None:
+        for mode in ReplaceMode:
+            if mode.value == value:
+                return mode
+        return default
 
 
 def get_ansi_color(color_spec: str) -> str:
