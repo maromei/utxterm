@@ -1,7 +1,36 @@
 import re
 from typing import Callable
+from enum import StrEnum, auto
 
 from utxterm._colors import ColorDict, AnsiFormat, InvalidColor
+
+
+class ReplaceMode(StrEnum):
+
+    #: Simply replace every formatting sequence with a space.
+    #:
+    #: # Example:
+    #:
+    #: | before <color:blue>Blue Text</color> after |
+    #: | before             Blue Text         after |
+    simple = auto()
+
+    #: The replacement whitespace with will be added to the right of the
+    #: **all following** text.
+    #:
+    #: # Example:
+    #:
+    #: | before <color:blue>Blue Text</color> after |
+    #: | before Blue Text after                     |
+    align_left = auto()
+
+    #: Centers the text **within** the replacement whitespace.
+    #:
+    #: # Example:
+    #:
+    #: | before <color:blue>Blue Text</color> after |
+    #: | before           Blue Text           after |
+    center = auto()
 
 
 def get_ansi_color(color_spec: str) -> str:
