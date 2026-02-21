@@ -52,6 +52,9 @@ class ReplaceMode(StrEnum):
 
     #: Centers the text **within** the replacement whitespace.
     #:
+    #: In case of uneven whitespace, the right side will contain one more
+    #: space than the left side.
+    #:
     #: # Example:
     #:
     #: | before <color:blue>Blue Text</color> after |
@@ -132,7 +135,7 @@ def _replace_single_tag(
             num_spaces_right: int = num_spaces // 2
 
             if num_spaces % 2 == 1:
-                num_spaces_left += 1
+                num_spaces_right += 1
 
             left_spaces: str = " " * num_spaces_left
             right_spaces: str = " " * num_spaces_right
@@ -161,7 +164,7 @@ def _replace_single_tag(
             num_spaces_right: int = num_spaces // 2
 
             if num_spaces % 2 == 1:
-                num_spaces_left += 1
+                num_spaces_right += 1
 
             left_spaces: str = " " * num_spaces_left
             right_spaces: str = " " * num_spaces_right
