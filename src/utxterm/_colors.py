@@ -1,3 +1,4 @@
+import re
 from enum import Enum
 from typing import Final, assert_never
 
@@ -72,17 +73,22 @@ class AnsiFormat:
         return f"\033[38;2;{r};{g};{b}m"
 
     @staticmethod
-    def bold(content: str) -> str:
+    def bold(content: str, *args) -> str:
         return f"\033[1m{content}\033[22m"
 
     @staticmethod
-    def underline(content: str) -> str:
+    def underline(content: str, *args) -> str:
         return f"\033[4m{content}\033[24m"
 
     @staticmethod
-    def italic(content: str) -> str:
+    def italic(content: str, *args) -> str:
         return f"\033[3m{content}\033[23m"
 
     @staticmethod
-    def strikethrough(content: str) -> str:
+    def strikethrough(content: str, *args) -> str:
         return f"\033[9m{content}\033[29m"
+
+    def extract_all_ansicodes(content: str) -> list[str]:
+        pattern: str = "\033[\\d+(;\\d+)*m"
+        match: list[str] = re.findall(pattern, content)
+        return match

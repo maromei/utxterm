@@ -11,6 +11,7 @@ from utxterm._pumlcallable import (
     NotAvailable,
     InPath,
 )
+from utxterm._replace_formatting import ReplaceMode
 
 
 LOGGER: logging.Logger = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ class Config:
     filepath: Path
     is_puml: bool
     plantuml_callable: PlantumlCallable
+    mode: ReplaceMode
 
 
 def _validate_filepath(filepath: str) -> Path:
@@ -89,6 +91,9 @@ def generate_config(args: CliArgs) -> Config:
         LOGGER.info("The given filepath is of type `puml`.")
     plantuml_callable: PlantumlCallable = _is_plantuml_available()
     config: Config = Config(
-        filepath=filepath, is_puml=is_puml, plantuml_callable=plantuml_callable
+        filepath=filepath,
+        is_puml=is_puml,
+        plantuml_callable=plantuml_callable,
+        mode=args.mode,
     )
     return config
