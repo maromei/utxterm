@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from utxterm._colors import ColorDict, AnsiFormat, InvalidColor
 
+
 @dataclass
 class Tag:
     before: str
@@ -141,8 +142,6 @@ def _replace_single_tag(
             )
 
         case ReplaceMode.center_line:
-            print(tag)
-
             num_spaces: int = len("<></>") + len(tag.tagname) * 2
             if tag.tagvalue is not None:
                 num_spaces += len(":") + len(tag.tagvalue)
@@ -167,7 +166,6 @@ def _replace_single_tag(
             left_spaces: str = " " * num_spaces_left
             right_spaces: str = " " * num_spaces_right
 
-            print(num_spaces_left, num_spaces_right)
             return (
                 f"{left_spaces}{tag.before}{content}{tag.after}{right_spaces}"
             )
