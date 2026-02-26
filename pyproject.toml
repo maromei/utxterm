@@ -1,6 +1,6 @@
 [project]
 name = "utxterm"
-version = "0.1.0"
+version = "0.2.0"
 description = "Render unicode puml diagrams in your terminal with color."
 readme = "README.md"
 requires-python = ">=3.13"
