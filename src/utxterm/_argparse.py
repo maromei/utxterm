@@ -19,6 +19,7 @@ def setup_argparse() -> CliArgs:
             "View ASCII-based or unicode-based puml diagrams "
             "in your terminal with color."
         ),
+        formatter_class=argparse.RawTextHelpFormatter,
     )
 
     parser.add_argument(
@@ -42,6 +43,40 @@ def setup_argparse() -> CliArgs:
         "--mode",
         default=ReplaceMode.align_left.value,
         choices=ReplaceMode.as_list(),
+        help=(
+            "Defines how the Tags definining the style are replaced.\n"
+            "\n"
+            "# simple\n"
+            "\n"
+            "Simply replace every formatting sequence with a space.\n"
+            "\n"
+            "| before <color:blue>Blue Text</color> after |\n"
+            "| before             Blue Text         after |\n"
+            "\n"
+            "# align_left\n"
+            "\n"
+            "The replacement whitespace with will be added to the right of\n"
+            "**all following** text.\n"
+            "\n"
+            "| before <color:blue>Blue Text</color> after |\n"
+            "| before Blue Text after                     |\n"
+            "\n"
+            "# center_ws\n"
+            "\n"
+            "Centers the text **within** the replacement whitespace.\n"
+            "In case of uneven whitespace, the right side will contain one\n"
+            "more space than the left side.\n"
+            "\n"
+            "| before <color:blue>Blue Text</color> after |\n"
+            "| before           Blue Text           after |\n"
+            "\n"
+            "# center_line\n"
+            "\n"
+            "Centers the line within the bounds.\n"
+            "\n"
+            "| before <color:blue>Blue Text</color> after |\n"
+            "|           before Blue Text after           |\n"
+        )
     )
 
     args: argparse.Namespace = parser.parse_args()
