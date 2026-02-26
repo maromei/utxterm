@@ -24,7 +24,6 @@ def main():
         utxt_path = render_puml(config.filepath, config.plantuml_callable)
 
     utxt_content: str = read_utxt_content(utxt_path)
-    terminal_content: str = replace_loop(utxt_content)
+    terminal_content: str = replace_loop(utxt_content, config.mode)
 
     print(terminal_content, end="")
-
